@@ -1,5 +1,7 @@
 package com.brandon.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,6 +21,7 @@ public class Vendor {
 
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 }
