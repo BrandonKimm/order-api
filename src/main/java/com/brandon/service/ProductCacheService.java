@@ -17,7 +17,7 @@ public class ProductCacheService {
     private final ProductRepository productRepository;
     private Page<Product> firstProductPage;
 
-    @Scheduled(fixedDelay=600000) //10분
+    //@Scheduled(fixedDelay=600000) //10분
     public void updateFirstProductPage(){
         firstProductPage = productRepository.findAll(
                 PageRequest.of(0, ProductService.getPageSize(), Sort.by("id").descending())
