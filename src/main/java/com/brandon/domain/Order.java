@@ -1,5 +1,8 @@
 package com.brandon.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,7 @@ public class Order {
 
     private LocalDateTime orderDate;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -31,4 +35,47 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
+
+
+
+    public static Order createOrder(Member member, List<OrderProduct> orderProducts) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setOrderDate(LocalDateTime.now());
+        order.setOrderStatus(OrderStatus.ORDER);
+        orderProducts.forEach(op -> order.addOrderItem(op, order));
+        return order;
+    }
+
+    public void addOrderItem(OrderProduct orderProduct,Order order) {
+        orderProducts.add(orderProduct);
+        orderProduct.setOrder(order);
+    }
+
+    //주문 전체 가격 조회
+    public int getTotalPrice(){
+        return this.orderProducts
+                .stream()
+                .mapToInt(op -> op.getTotalPrice())
+                .sum();
+    }
+
+    //주문상품 종류갯수 조회
+    public int getTotalQuantity(){
+        return this.orderProducts.size();
+    }
+
+    public void cancel() {
+        if (orderStatus != OrderStatus.ORDER) {
+            throw new IllegalStateException("already order completed");
+        }
+        System.out.println(orderStatus);
+        this.setOrderStatus(OrderStatus.CANCEL);
+        System.out.println(orderStatus);
+        for (OrderProduct op : this.orderProducts) {
+            op.cancel();
+        }
+    }
+
 }

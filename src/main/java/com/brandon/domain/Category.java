@@ -19,6 +19,8 @@ public class Category {
 
     private String name;
 
+    // todo: 양방향참조 임시제거 추후 비지니스에 따라 재생성
+
     @JsonIgnore
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
