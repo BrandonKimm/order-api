@@ -3,6 +3,8 @@ package com.brandon.service;
 import com.brandon.domain.Product;
 import com.brandon.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,12 +19,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private static Integer PAGE_SIZE = 5;
+    private static int PAGE_SIZE = 5;
 
-    public Page<Product> getPageProductList(Integer page) {
-        return productRepository.findAll(PageRequest.of(page - 1, PAGE_SIZE, Sort.by("id").descending()));
+    @Cacheable(value ="getPageFirstProductPage", key = "#page", condition = "#page == 1")
+    public Page<Product> getPageProductList(int page) {
+        return productRepository.findAll(PageRequest.of(page - 1, getPageSize(), Sort.by("id").descending()));
     }
-
+    
     public Optional<Product> getProduct(Long productId) {
         return productRepository.findById(productId);
     }
@@ -31,8 +34,6 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public static Integer getPageSize(){
-        return PAGE_SIZE;
-    }
+    public static Integer getPageSize(){ return PAGE_SIZE; }
 
 }
