@@ -1,21 +1,14 @@
 package com.brandon.exception;
 
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class NotEnoughStockException extends RuntimeException {
-    public NotEnoughStockException(String need_more_stock) {
-        super(need_more_stock);
-    }
+    public NotEnoughStockException(String message) {
 
-    public NotEnoughStockException() {
-        super();
-    }
-
-    public NotEnoughStockException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public NotEnoughStockException(Throwable cause) {
-        super(cause);
+        super("재고수량보다 더 많은 주문수량입니다. ("+message+")");
+        log.error("재고수량보다 더 많은 주문수량입니다. ("+message+")");
     }
 
 }
