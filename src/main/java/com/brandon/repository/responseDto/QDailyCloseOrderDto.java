@@ -16,6 +16,4 @@ public class QDailyCloseOrderDto {
     private int productPrice;
     private int sumQuantity;
     private int sumPrice;
-
-
 }

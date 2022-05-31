@@ -10,11 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderMailResponseDto {
 
-    private Long orderId;
-    private LocalDateTime orderDate;
-    private String memberEmail;
-    private String memberName;
-    private List<ProductSimpleResponseDto> orderProducts;
-    private int orderTotalPrice;
-    private int orderTotalProductQuantity;
+    private String email;
+    private String subject;
+    private String message;
 }
