@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://34.64.203.187:3306/db_dev?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false
     username: db_dev_admin
-    password: 1234
+    password: 
   rabbitmq:
     host: 34.64.89.15
     port: 5672
