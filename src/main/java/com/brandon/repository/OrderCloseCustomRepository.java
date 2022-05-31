@@ -23,17 +23,6 @@ public class OrderCloseCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    /*private Long vendorId;
-    private String vendorName;
-    private Long memberId;
-    private String memberName;
-    private String memberAddress;
-    private Long productId;
-    private String productName;
-    private int productPrice;
-    private int sumQuantity;
-    private int sumPrice;*/
-
     public List<QDailyCloseOrderDto> findVendor(LocalDateTime start, LocalDateTime end) {
 
         return jpaQueryFactory

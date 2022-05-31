@@ -48,17 +48,16 @@ public class OrderProduct {
 
     // 주문상품수량변경
     public void updateProductOrderQuantity(int orderProductUpdateQuantity) {
-
         if(orderProductUpdateQuantity  < 0 ){
             new IllegalArgumentException("0 이상의 숫자로 변경하세요");
         }
-        if(this.productOrderQuantity == orderProductUpdateQuantity){
+        else if(this.productOrderQuantity == orderProductUpdateQuantity){
             return;
         }
-        if(this.productOrderQuantity < orderProductUpdateQuantity){
+        else if(this.productOrderQuantity < orderProductUpdateQuantity){
             this.getProduct().removeStock(orderProductUpdateQuantity - productOrderQuantity);
         }
-        if(this.productOrderQuantity > orderProductUpdateQuantity){
+        else if(this.productOrderQuantity > orderProductUpdateQuantity){
             this.getProduct().addStock(productOrderQuantity - orderProductUpdateQuantity);
         }
         this.setProductOrderQuantity(orderProductUpdateQuantity);
