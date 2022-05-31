@@ -1,0 +1,36 @@
+localhost:8080/dummy/members/new
+{
+    "name": "Brandon",
+    "address": "Seoul",
+    "email": "Brandon@gmail.com"
+}
+
+localhost:8080/dummy/vendors/new
+{
+    "name": "농심",
+    "email": "ns@nongsim.com"
+}
+
+localhost:8080/dummy/products/new?categoryId=4&vendorId=3
+{
+    "name": "신라면",
+    "price": 1200,
+    "stockQuantity":20
+}
+
+localhost:8080/order
+{
+    "memberId":1,
+    "orderProducts":[
+        {
+            "productId":7,
+            "orderQuantity":10
+        },
+        {
+            "productId":6,
+            "orderQuantity":10
+
+        }
+    ]
+
+}
