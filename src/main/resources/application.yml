@@ -14,9 +14,6 @@ spring:
       config: classpath:ehcache.xml
   profiles:
     active: local
-
-
-
   jpa:
     hibernate:
       ddl-auto: none
