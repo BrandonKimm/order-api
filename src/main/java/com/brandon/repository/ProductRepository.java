@@ -14,12 +14,11 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    //@Query("select p from Product p join fetch p.category join fetch p.vendor ")
-    //@Override
+    @Override
     @EntityGraph(attributePaths = {"vendor", "category"}, type = EntityGraph.EntityGraphType.FETCH)
     List<Product> findAll();
 
-    //@Override
+    @Override
     @EntityGraph(attributePaths = {"vendor", "category"}, type = EntityGraph.EntityGraphType.FETCH)
     Page<Product> findAll(Pageable pageable);
 

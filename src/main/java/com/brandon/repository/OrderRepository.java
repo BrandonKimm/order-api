@@ -12,9 +12,6 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-
-
-    //todo: 일단은 다 셀렉트해놨는데 Dto 값따라 변경하기
     @EntityGraph(attributePaths = {"orderProducts",
             "orderProducts.product",
             "orderProducts.product.category",
