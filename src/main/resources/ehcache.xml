@@ -5,15 +5,14 @@
 
     <diskStore path="java.io.tmpdir" />
 
-    <cache name="getPageFirstProductPage"
-           maxEntriesLocalHeap="2000"
-           maxEntriesLocalDisk="1000"
+    <cache name="findAllByPage"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="20000"
            eternal="false"
            diskSpoolBufferSizeMB="20"
            timeToIdleSeconds="300"
            timeToLiveSeconds="10"
            memoryStoreEvictionPolicy="LFU"
-           overflowToDisk="false"
            transactionalMode="off">
         <persistence strategy="localTempSwap" />
     </cache>
