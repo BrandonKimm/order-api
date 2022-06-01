@@ -4,9 +4,11 @@ import com.brandon.domain.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
-public class ProductResponseDto {
+public class ProductResponseDto  {
     private Long id;
     private String name;
     private int price;
