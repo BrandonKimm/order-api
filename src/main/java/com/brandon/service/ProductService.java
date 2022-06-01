@@ -19,18 +19,18 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private static int PAGE_SIZE = 5;
+    private final static int PAGE_SIZE = 5;
 
-    @Cacheable(value ="getPageFirstProductPage", key = "#page", condition = "#page == 1")
-    public Page<Product> getPageProductList(int page) {
+    @Cacheable(value ="findAllByPage", key = "#page", condition = "#page == 1")
+    public Page<Product> findAllByPage(int page) {
         return productRepository.findAll(PageRequest.of(page - 1, getPageSize(), Sort.by("id").descending()));
     }
     
-    public Optional<Product> getProduct(Long productId) {
+    public Optional<Product> findOne(Long productId) {
         return productRepository.findById(productId);
     }
 
-    public List<Product> getProductList() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
