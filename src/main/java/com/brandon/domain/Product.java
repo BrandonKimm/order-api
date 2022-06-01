@@ -3,6 +3,7 @@ package com.brandon.domain;
 import com.brandon.exception.NotEnoughStockException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

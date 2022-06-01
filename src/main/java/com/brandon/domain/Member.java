@@ -2,7 +2,6 @@ package com.brandon.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,5 +25,6 @@ public class Member {
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
 
 }
