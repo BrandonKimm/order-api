@@ -7,15 +7,13 @@ import com.brandon.controller.responsedto.OrderMailResponseDto;
 import com.brandon.controller.responsedto.ProductSimpleResponseDto;
 import com.brandon.domain.*;
 import com.brandon.exception.ResourceNotFoundException;
-import com.brandon.repository.OrderCloseCustomRepository;
-import com.brandon.service.MailService;
 import com.brandon.service.MemberService;
 import com.brandon.service.OrderService;
 import com.brandon.service.ProductService;
+import com.brandon.util.MailSendModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +24,7 @@ public class OrderController {
     private final MemberService memberService;
     private final OrderService orderService;
     private final ProductService productService;
-    private final MailService mailService;
+    private final MailSendModule mailSendModule;
 
     @PostMapping("/order")
     public Order createOrder(@RequestBody CreateOrderDto createOrderDto) {
@@ -36,7 +34,7 @@ public class OrderController {
 
         List<OrderProduct> orderProducts = createOrderDto.getOrderProducts()
                 .stream()
-                .map(dto -> new OrderProduct(productService.getProduct(dto.getProductId())
+                .map(dto -> new OrderProduct(productService.findOne(dto.getProductId())
                         .orElseThrow(() -> new ResourceNotFoundException("요청하신 상품 ID: "+dto.getProductId())),
                         dto.getOrderQuantity()))
                 .collect(Collectors.toList());
@@ -45,7 +43,7 @@ public class OrderController {
         order = orderService.order(order, member, orderProducts);
 
 
-        mailService.sendToMember( new OrderMailResponseDto(
+        mailSendModule.sendToMember( new OrderMailResponseDto(
                 member.getEmail(),
                 member.getName()+"님 주문내역 확인메일",
                 order.getId().toString()+

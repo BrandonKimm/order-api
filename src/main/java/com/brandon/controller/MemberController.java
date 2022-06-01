@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,14 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/members/{memberId}/orders")
-    public List<OrderListResponseDto> findOrderList(@PathVariable("memberId") Long memberId) {
+    public List<OrderListResponseDto> findOrderListByMember(@PathVariable("memberId") Long memberId) {
         Member member = memberService.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("요청하신 멤버 ID: "+memberId));
+
+        System.out.println(member.getOrders());
+
+        if(member.getOrders().isEmpty())
+            throw new ResourceNotFoundException("요청하신 "+ member.getName() +"님의 주문내역은 존재하지 않습니다");
+
         return member.getOrders()
                 .stream()
                 .map(o -> new OrderListResponseDto(o.getId(),

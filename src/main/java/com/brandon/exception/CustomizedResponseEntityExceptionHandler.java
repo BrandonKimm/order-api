@@ -31,6 +31,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 + "\n <INPUT JSON>\n"
                 + new String(contentCachingRequestWrapper.getContentAsByteArray()));
 
+        logger.error("Exception : "+ex);
+        Arrays.stream(ex.getStackTrace()).forEach(System.out::println);
 
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
